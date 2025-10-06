@@ -1,7 +1,7 @@
+import 'package:creative_it/models/job_model.dart';
+import 'package:creative_it/services/api_service.dart';
+import 'package:creative_it/services/storage_service.dart';
 import 'package:get/get.dart';
-import 'package:mini_job_portal/models/job_model.dart';
-import 'package:mini_job_portal/services/api_service.dart';
-import 'package:mini_job_portal/services/storage_service.dart';
 
 class HomeController extends GetxController {
   final ApiService apiService = ApiService();

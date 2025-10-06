@@ -1,6 +1,6 @@
+import 'package:creative_it/controllers/job_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_job_portal/controllers/job_detail_controller.dart';
 
 class JobDetailScreen extends StatelessWidget {
   final JobDetailController controller = Get.put(JobDetailController());

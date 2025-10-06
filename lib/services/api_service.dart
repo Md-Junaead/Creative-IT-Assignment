@@ -1,6 +1,6 @@
+import 'package:creative_it/models/job_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:mini_job_portal/models/job_model.dart';
 
 class ApiService {
   static const String baseUrl = 'https://dummyjson.com';

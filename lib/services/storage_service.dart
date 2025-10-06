@@ -1,6 +1,6 @@
+import 'package:creative_it/models/job_model.dart';
+import 'package:creative_it/models/user_model.dart';
 import 'package:hive/hive.dart';
-import 'package:mini_job_portal/models/job_model.dart';
-import 'package:mini_job_portal/models/user_model.dart';
 
 class StorageService {
   // Jobs

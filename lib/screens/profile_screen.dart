@@ -1,7 +1,7 @@
+import 'package:creative_it/controllers/auth_controller.dart';
+import 'package:creative_it/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_job_portal/controllers/auth_controller.dart';
-import 'package:mini_job_portal/controllers/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   final ProfileController profileController = Get.put(ProfileController());

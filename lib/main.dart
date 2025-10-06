@@ -1,9 +1,13 @@
+import 'package:creative_it/models/job_model.dart';
+import 'package:creative_it/models/user_model.dart';
+import 'package:creative_it/screens/home_screen.dart';
+import 'package:creative_it/screens/job_details_screen.dart';
+import 'package:creative_it/screens/login_screen.dart';
+import 'package:creative_it/screens/profile_screen.dart';
+import 'package:creative_it/screens/saved_jobs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mini_job_portal/models/job_model.dart';
-import 'package:mini_job_portal/models/user_model.dart';
-import 'package:mini_job_portal/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

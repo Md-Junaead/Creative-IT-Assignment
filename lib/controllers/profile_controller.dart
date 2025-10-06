@@ -1,6 +1,6 @@
+import 'package:creative_it/models/user_model.dart';
+import 'package:creative_it/services/storage_service.dart';
 import 'package:get/get.dart';
-import 'package:mini_job_portal/models/user_model.dart';
-import 'package:mini_job_portal/services/storage_service.dart';
 
 class ProfileController extends GetxController {
   final StorageService storageService = StorageService();

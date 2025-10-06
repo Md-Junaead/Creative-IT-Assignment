@@ -1,8 +1,7 @@
+import 'package:creative_it/controllers/home_controller.dart';
+import 'package:creative_it/models/job_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_job_portal/controllers/home_controller.dart';
-import 'package:mini_job_portal/models/job_model.dart';
-import 'package:mini_job_portal/screens/job_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController());

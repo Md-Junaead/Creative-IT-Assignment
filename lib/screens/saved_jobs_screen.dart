@@ -1,8 +1,7 @@
+import 'package:creative_it/controllers/saved_job_controller.dart';
+import 'package:creative_it/screens/job_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_job_portal/controllers/saved_jobs_controller.dart';
-import 'package:mini_job_portal/models/job_model.dart';
-import 'package:mini_job_portal/screens/job_detail_screen.dart';
 
 class SavedJobsScreen extends StatelessWidget {
   final SavedJobsController controller = Get.put(SavedJobsController());
