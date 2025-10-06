@@ -98,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: authController.logout,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal[600],
+                            backgroundColor: const Color(0xFFFF5722),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

@@ -31,7 +31,7 @@ class HomeController extends GetxController {
       final apiJobs = await apiService.fetchJobs();
       await storageService.saveJobs(apiJobs);
 
-      // Check which jobs are saved
+      // Check which jobs are saved for the current user
       final savedJobs = await storageService.getSavedJobs();
       final savedJobIds = savedJobs.map((job) => job.id).toSet();
 
@@ -79,7 +79,7 @@ class HomeController extends GetxController {
           description: job.description,
           salary: job.salary,
           imageUrl: job.imageUrl,
-          isSaved: true, // Set isSaved to true for saved jobs
+          isSaved: true,
         );
         await storageService.saveJob(jobCopy);
         job.isSaved = true;
@@ -100,7 +100,7 @@ class HomeController extends GetxController {
     // Find the index of the job in the jobs list
     int index = jobs.indexOf(job);
     if (index != -1) {
-      await toggleSaveJob(index); // Use toggleSaveJob to handle saving logic
+      await toggleSaveJob(index);
     }
   }
 }

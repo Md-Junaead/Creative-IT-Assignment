@@ -80,17 +80,6 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30),
-                  const Text(
-                    'Demo Accounts:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Email: john@gmail.com\nPassword: 1234\n\nEmail: jane@gmail.com\nPassword: 1234\n\nEmail: admin@gmail.com\nPassword: 1234',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
                 ],
               ),
             ),
