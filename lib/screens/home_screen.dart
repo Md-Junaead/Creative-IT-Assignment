@@ -56,7 +56,6 @@ class HomeScreen extends StatelessWidget {
                     job: job,
                     onTap: () =>
                         Get.to(() => JobDetailScreen(), arguments: job),
-                    onSaveToggle: () => homeController.toggleSaveJob(index),
                     onApply: () => homeController.applyForJob(job),
                   );
                 },

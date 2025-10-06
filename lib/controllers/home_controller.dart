@@ -96,7 +96,11 @@ class HomeController extends GetxController {
     }
   }
 
-  void applyForJob(JobModel job) {
-    Get.snackbar('Success', 'Application submitted for ${job.title}');
+  Future<void> applyForJob(JobModel job) async {
+    // Find the index of the job in the jobs list
+    int index = jobs.indexOf(job);
+    if (index != -1) {
+      await toggleSaveJob(index); // Use toggleSaveJob to handle saving logic
+    }
   }
 }

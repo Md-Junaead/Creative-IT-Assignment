@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 class JobCard extends StatelessWidget {
   final JobModel job;
   final VoidCallback onTap;
-  final VoidCallback onSaveToggle;
   final VoidCallback onApply;
 
   const JobCard({
     super.key,
     required this.job,
     required this.onTap,
-    required this.onSaveToggle,
     required this.onApply,
   });
 
@@ -57,43 +55,36 @@ class JobCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(
-                      job.isSaved ? Icons.bookmark : Icons.bookmark_border,
-                      color: job.isSaved ? Colors.blue : null,
-                    ),
-                    onPressed: onSaveToggle,
-                  ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
-                job.salary,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.green,
-                ),
-              ),
-              const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: onTap, // Use the same onTap for consistency
-                      child: const Text('View Details'),
+                  Text(
+                    job.salary, // Display salary on the left
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.green,
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: onApply,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                  ElevatedButton(
+                    onPressed: job.isSaved ? null : onApply,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: job.isSaved
+                          ? Colors.grey
+                          : const Color(
+                              0xFFFF5722), // Grey if applied, orange if not
+                      foregroundColor: Colors.white, // White text for contrast
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text('Apply'),
+                      elevation: 4, // Slight shadow for depth
                     ),
+                    child: Text(job.isSaved ? 'Applied' : 'Apply Now'),
                   ),
                 ],
               ),

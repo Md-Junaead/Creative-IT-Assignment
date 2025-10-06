@@ -9,14 +9,23 @@ class JobDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Job Details'),
+        title: const Text(
+          'Job Details',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue[700],
+        elevation: 2,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Get.back(),
+        ),
         actions: [
           Obx(() => IconButton(
                 icon: Icon(
                   controller.isSaved.value
                       ? Icons.bookmark
                       : Icons.bookmark_border,
-                  color: controller.isSaved.value ? Colors.blue : null,
+                  color: controller.isSaved.value ? Colors.white : null,
                 ),
                 onPressed: controller.toggleSaveJob,
               )),
@@ -60,14 +69,6 @@ class JobDetailScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(controller.job.description),
             const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () =>
-                    Get.snackbar('Success', 'Application submitted'),
-                child: const Text('Apply Now'),
-              ),
-            ),
           ],
         ),
       ),

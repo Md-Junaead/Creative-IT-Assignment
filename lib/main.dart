@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Mini Job Portal',
+      title: 'Creative Tech Park Assignment',
+      debugShowCheckedModeBanner: false,
       home: LoginScreen(),
       getPages: [
         GetPage(name: '/', page: () => LoginScreen()),
