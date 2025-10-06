@@ -1,5 +1,6 @@
 import 'package:creative_it/controllers/home_controller.dart';
-import 'package:creative_it/models/job_model.dart';
+import 'package:creative_it/screens/job_card.dart';
+import 'package:creative_it/screens/job_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,55 +54,16 @@ class HomeScreen extends StatelessWidget {
                   final job = homeController.jobs[index];
                   return JobCard(
                     job: job,
-                    onTap: () => Get.toNamed('/job_detail', arguments: job),
+                    onTap: () =>
+                        Get.to(() => JobDetailScreen(), arguments: job),
                     onSaveToggle: () => homeController.toggleSaveJob(index),
+                    onApply: () => homeController.applyForJob(job),
                   );
                 },
               );
             }),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class JobCard extends StatelessWidget {
-  final JobModel job;
-  final VoidCallback onTap;
-  final VoidCallback onSaveToggle;
-
-  const JobCard({
-    super.key,
-    required this.job,
-    required this.onTap,
-    required this.onSaveToggle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ListTile(
-        leading: Image.network(
-          job.imageUrl,
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return const Icon(Icons.business);
-          },
-        ),
-        title: Text(job.title),
-        subtitle: Text('${job.company} • ${job.location}'),
-        trailing: IconButton(
-          icon: Icon(
-            job.isSaved ? Icons.bookmark : Icons.bookmark_border,
-            color: job.isSaved ? Colors.blue : null,
-          ),
-          onPressed: onSaveToggle,
-        ),
-        onTap: onTap,
       ),
     );
   }

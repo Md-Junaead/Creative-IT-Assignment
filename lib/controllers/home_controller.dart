@@ -30,6 +30,15 @@ class HomeController extends GetxController {
       // Fetch from API
       final apiJobs = await apiService.fetchJobs();
       await storageService.saveJobs(apiJobs);
+
+      // Check which jobs are saved
+      final savedJobs = await storageService.getSavedJobs();
+      final savedJobIds = savedJobs.map((job) => job.id).toSet();
+
+      for (var job in apiJobs) {
+        job.isSaved = savedJobIds.contains(job.id);
+      }
+
       jobs.assignAll(apiJobs);
     } catch (e) {
       Get.snackbar('Error', 'Failed to load jobs');
@@ -54,19 +63,40 @@ class HomeController extends GetxController {
   Future<void> toggleSaveJob(int index) async {
     try {
       final job = jobs[index];
-      job.isSaved = !job.isSaved;
 
       if (job.isSaved) {
-        await storageService.saveJob(job);
-        Get.snackbar('Success', 'Job saved');
-      } else {
+        // Remove from saved jobs
         await storageService.removeJob(job.id);
+        job.isSaved = false;
         Get.snackbar('Success', 'Job removed from saved');
+      } else {
+        // Create a new instance to avoid HiveObject conflict
+        final jobCopy = JobModel(
+          id: job.id,
+          title: job.title,
+          company: job.company,
+          location: job.location,
+          description: job.description,
+          salary: job.salary,
+          imageUrl: job.imageUrl,
+          isSaved: true, // Set isSaved to true for saved jobs
+        );
+        await storageService.saveJob(jobCopy);
+        job.isSaved = true;
+        Get.snackbar('Success', 'Job saved');
       }
 
+      // Update the job in the main list
+      jobs[index] = job;
+
+      // Refresh the list to update UI
       jobs.refresh();
     } catch (e) {
-      Get.snackbar('Error', 'Failed to update job');
+      Get.snackbar('Error', 'Failed to update job: $e');
     }
+  }
+
+  void applyForJob(JobModel job) {
+    Get.snackbar('Success', 'Application submitted for ${job.title}');
   }
 }

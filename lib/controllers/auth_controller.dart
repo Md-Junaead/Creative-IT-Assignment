@@ -7,11 +7,38 @@ class AuthController extends GetxController {
 
   var isLoading = false.obs;
   var isLoggedIn = false.obs;
+  var users = <UserModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
+    _initializeDemoUsers();
     checkLoginStatus();
+  }
+
+  // Initialize demo users
+  void _initializeDemoUsers() {
+    final demoUsers = [
+      UserModel(
+        id: '1',
+        name: 'John Doe',
+        email: 'john@gmail.com',
+        password: '1234',
+      ),
+      UserModel(
+        id: '2',
+        name: 'Jane Smith',
+        email: 'jane@gmail.com',
+        password: '1234',
+      ),
+      UserModel(
+        id: '3',
+        name: 'Admin User',
+        email: 'admin@gmail.com',
+        password: '1234',
+      ),
+    ];
+    users.assignAll(demoUsers);
   }
 
   void checkLoginStatus() async {
@@ -22,23 +49,72 @@ class AuthController extends GetxController {
     }
   }
 
+  // Login with existing user
   Future<void> login(String email, String password) async {
     try {
       isLoading.value = true;
 
-      // Create user if not exists
-      final user = UserModel(
+      // Check if user exists in demo users
+      final existingUser = users.firstWhereOrNull(
+        (user) => user.email == email && user.password == password,
+      );
+
+      if (existingUser != null) {
+        await storageService.saveUser(existingUser);
+        isLoggedIn.value = true;
+        Get.offAllNamed('/home');
+        Get.snackbar('Success', 'Login successful');
+      } else {
+        // Check if user exists in local storage
+        final localUser = await storageService.getUser();
+        if (localUser != null &&
+            localUser.email == email &&
+            localUser.password == password) {
+          isLoggedIn.value = true;
+          Get.offAllNamed('/home');
+          Get.snackbar('Success', 'Login successful');
+        } else {
+          Get.snackbar('Error', 'Invalid email or password');
+        }
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Login failed');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // Signup new user
+  Future<void> signup(String name, String email, String password) async {
+    try {
+      isLoading.value = true;
+
+      // Check if email already exists
+      final emailExists = users.any((user) => user.email == email);
+      if (emailExists) {
+        Get.snackbar('Error', 'Email already exists');
+        return;
+      }
+
+      // Create new user
+      final newUser = UserModel(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        name: 'Demo User',
+        name: name,
         email: email,
         password: password,
       );
 
-      await storageService.saveUser(user);
+      // Add to users list
+      users.add(newUser);
+
+      // Save to local storage
+      await storageService.saveUser(newUser);
+
       isLoggedIn.value = true;
       Get.offAllNamed('/home');
+      Get.snackbar('Success', 'Account created successfully');
     } catch (e) {
-      Get.snackbar('Error', 'Login failed');
+      Get.snackbar('Error', 'Signup failed');
     } finally {
       isLoading.value = false;
     }

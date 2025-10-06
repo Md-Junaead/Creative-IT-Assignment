@@ -19,7 +19,7 @@ class SavedJobsController extends GetxController {
       final jobs = await storageService.getSavedJobs();
       savedJobs.assignAll(jobs);
     } catch (e) {
-      Get.snackbar('Error', 'Failed to load saved jobs');
+      Get.snackbar('Error', 'Failed to load saved jobs: $e');
     } finally {
       isLoading.value = false;
     }
@@ -32,7 +32,7 @@ class SavedJobsController extends GetxController {
       savedJobs.removeAt(index);
       Get.snackbar('Success', 'Job removed from saved');
     } catch (e) {
-      Get.snackbar('Error', 'Failed to remove job');
+      Get.snackbar('Error', 'Failed to remove job: $e');
     }
   }
 }

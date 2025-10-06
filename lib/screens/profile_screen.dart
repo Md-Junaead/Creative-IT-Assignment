@@ -12,6 +12,12 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => _showEditDialog(context),
+          ),
+        ],
       ),
       body: Obx(() {
         if (profileController.isLoading.value) {
@@ -29,7 +35,12 @@ class ProfileScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50,
-                child: Text(user.name[0].toUpperCase()),
+                backgroundColor: Colors.blue.shade100,
+                child: Text(
+                  user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ),
               const SizedBox(height: 16),
               Text(
@@ -41,6 +52,11 @@ class ProfileScreen extends StatelessWidget {
               Text(
                 user.email,
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'User ID: ${user.id}',
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
               ),
               const Spacer(),
               SizedBox(
@@ -57,6 +73,46 @@ class ProfileScreen extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+
+  void _showEditDialog(BuildContext context) {
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Edit Profile'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(labelText: 'Name'),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Update user logic here
+              Navigator.pop(context);
+              Get.snackbar('Success', 'Profile updated');
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:creative_it/screens/job_details_screen.dart';
 import 'package:creative_it/screens/login_screen.dart';
 import 'package:creative_it/screens/profile_screen.dart';
 import 'package:creative_it/screens/saved_jobs_screen.dart';
+import 'package:creative_it/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       home: LoginScreen(),
       getPages: [
         GetPage(name: '/', page: () => LoginScreen()),
+        GetPage(name: '/signup', page: () => SignupScreen()),
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/job_detail', page: () => JobDetailScreen()),
         GetPage(name: '/saved_jobs', page: () => SavedJobsScreen()),
